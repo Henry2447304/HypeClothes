@@ -88,7 +88,7 @@ namespace ClassLibrary
             mDateOrdered = Convert.ToDateTime("09/03/2021");
             mAvailable = true;
             mTotalItem = 10;
-            mTotalPrice = 15.00;
+            mTotalPrice = 15.55;
             mDeliveryAddress = "40, Some Street, Leicester, LE1 1AB";
             //alaways return true
             return true;

@@ -180,7 +180,7 @@ namespace Testing2
             Boolean OK = true;
             Int32 OrderID = 1234;
             Found = AnOrder.Find(OrderID);
-            if (AnOrder.TotalPrice != Convert.ToDouble(15.00))
+            if (AnOrder.TotalPrice != Convert.ToDouble(15.55))
             {
                 OK = false;
             }
