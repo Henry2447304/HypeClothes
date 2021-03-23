@@ -81,6 +81,8 @@ namespace ClassLibrary
             }
         }
 
+        public DateTime DateTemp { get; private set; }
+
         public bool Find(int orderID)
         {
             //set the private data members to the test data value
@@ -92,6 +94,46 @@ namespace ClassLibrary
             mDeliveryAddress = "40, Some Street, Leicester, LE1 1AB";
             //alaways return true
             return true;
+        }
+
+        public string Valid(string dateOrdered, string deliveryAddress)
+        {
+            //create a string variable to store the error
+            String Error = "";
+            //if the deliveryAddress is blank
+            if (deliveryAddress.Length == 0)
+            {
+                //record the error
+                Error = Error + "The delivery address may not be blank : ";
+            }
+            //if the deliveryAddress is greater than 50 characters
+            if (deliveryAddress.Length > 50)
+            {
+                //record the error
+                Error = Error + "The delivery address must be less than 50 characters : ";
+            }
+            try
+            {
+                //copy the dateOrdered value to the DateTemp variable
+                DateTemp = Convert.ToDateTime(dateOrdered);
+                if (DateTemp < DateTime.Now.Date)
+                {
+                    //record the error
+                    Error = Error + "The date cannot be in the past : ";
+                }
+                //check to see if the date is greater than today's date
+                if (DateTemp > DateTime.Now.Date)
+                {
+                    Error = Error + "The date cannot be in the future : ";
+                }
+            }
+            catch
+            {
+                //record the error
+                Error = Error + "The date was not a valid date : ";
+            }
+            //return any error messages
+            return Error;
         }
     }
 }
