@@ -37,24 +37,32 @@ namespace ClassLibrary
 
         public clsOrderCollection()
         {
-            //create the items of test data
-            clsOrder TestItem = new clsOrder();
-            TestItem.Available = true;
-            TestItem.OrderID = 1234;
-            TestItem.TotalItem = 10;
-            TestItem.TotalPrice = 15.55;
-            TestItem.DeliveryAddress = "40, Some Street, Leicester, LE1 1AB";
-            TestItem.DateOrdered = DateTime.Now.Date;
-            mOrderList.Add(TestItem);
-            //re initialise the object for some new data
-            TestItem = new clsOrder();
-            TestItem.Available = true;
-            TestItem.OrderID = 4567;
-            TestItem.TotalItem = 15;
-            TestItem.TotalPrice = 19.99;
-            TestItem.DeliveryAddress = "80, Some Street, Leicester, LE1 1AB";
-            TestItem.DateOrdered = DateTime.Now.Date;
-            mOrderList.Add(TestItem);
+            //var for the index
+            Int32 Index = 0;
+            //var to store the record count
+            Int32 RecordCount = 0;
+            //object for data connection
+            clsDataConnection DB = new clsDataConnection();
+            //execute the stored procedure
+            DB.Execute("sproc_tblOrder_SelectAll");
+            //get the count of records
+            RecordCount = DB.Count;
+            //while there are records to process
+            while (Index < RecordCount)
+            {
+                //create a blank order
+                clsOrder AnOrder = new clsOrder();
+                //read in the fields from the current record
+                AnOrder.Available = Convert.ToBoolean(DB.DataTable.Rows[Index]["Available"]);
+                AnOrder.OrderID = Convert.ToInt32(DB.DataTable.Rows[Index]["OrderID"]);
+                AnOrder.TotalItem = Convert.ToInt32(DB.DataTable.Rows[Index]["TotalItem"]);
+                AnOrder.TotalPrice = Convert.ToDouble(DB.DataTable.Rows[Index]["TotalPrice"]);
+                AnOrder.DeliveryAddress = Convert.ToString(DB.DataTable.Rows[Index]["DeliveryAddress"]);
+                AnOrder.DateOrdered = Convert.ToDateTime(DB.DataTable.Rows[Index]["DateOrdered"]);
+                mOrderList.Add(AnOrder);
+                //point at the next record
+                Index++;
+            }
         }
 
         public clsOrder ThisOrder { get; set; }
