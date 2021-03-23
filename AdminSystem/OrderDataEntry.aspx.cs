@@ -44,10 +44,30 @@ public partial class _1_DataEntry : System.Web.UI.Page
             AnOrder.DeliveryAddress = DeliveryAddress;
             //capture date ordered
             AnOrder.DateOrdered = Convert.ToDateTime(DateOrdered);
-            //store the id in the session object
-            Session["AnOrder"] = AnOrder;
-            //navigate to the viewer page
-            Response.Redirect("OrderViewer.aspx");
+            //capture available
+            AnOrder.Available = chkAvailable.Checked;
+            //create a new instance of the order collection
+            clsOrderCollection OrderList = new clsOrderCollection();
+            //if this is a new record i.e. OrderID = -1 then add the data
+            if (OrderID == "-1")
+            {
+                //set the ThisOrder property
+                OrderList.ThisOrder = AnOrder;
+                //add the new record
+                OrderList.Add();
+            }
+            //otherwise it must be an update
+            else
+            {
+                //find the record to update
+                OrderList.ThisOrder.Find(Convert.ToInt32(OrderID));
+                //set thisOrder property
+                OrderList.ThisOrder = AnOrder;
+                //update the record
+                OrderList.Update();
+            }
+            //navigate to the list page
+            Response.Redirect("OrderList.aspx");
         }
         else
         {
