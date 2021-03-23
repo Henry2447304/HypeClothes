@@ -15,16 +15,18 @@ namespace Testing1
             //test to see that it exists
             Assert.IsNotNull(ACustomer);
         }
+
+        [TestMethod]
+        public void CustomerIdOK()
+        {
+            //
+            clsCustomer ACustomer = new clsCustomer();
+            int TestData = 2;
+            ACustomer.CustomerId = TestData;
+            //
+            Assert.AreEqual(ACustomer.CustomerId, TestData);
+        }
     }
 
-    [TestMethod]
-    public void CustomerIdOK()
-    {
-        //
-        clsCustomer ACustomer = new clsCustomer();
-        int TestData = 2;
-        ACustomer.CustomerId = TestData;
-        //
-        Assert.AreEqual(ACustomer.CustomerId,TestData);
-    }
+    
 }
