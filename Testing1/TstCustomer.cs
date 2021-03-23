@@ -8,7 +8,9 @@ namespace Testing1
     public class tstCustomer
     {
         //good test data
-        private int mCustomerId = 2;
+        string Dob = DateTime.Now.Date.ToString();
+        string Address = "1, A Street, Leicester, LE1 1AA";
+
         [TestMethod]
         public void InstanceOK()
         {
@@ -21,11 +23,10 @@ namespace Testing1
         [TestMethod]
         public void CustomerIdOK()
         {
-
-            clsCustomer ACustomer = new clsCustomer();
-            int TestData = mCustomerId;
-            ACustomer.CustomerId = TestData;
-            Assert.AreEqual(ACustomer.CustomerId, TestData);
+            clsCustomer AnCustomer = new clsCustomer();
+            Int32 TestData = 1;
+            AnCustomer.CustomerId = TestData;
+            Assert.AreEqual(AnCustomer.CustomerId, TestData);
         }
 
         [TestMethod]
@@ -38,16 +39,55 @@ namespace Testing1
             Error = ACustomer.Valid(mCustomerId);
             Assert.AreEqual(Error, "");
         }
+        
+        [TestMethod]
+        public void AddressOK()
+        {
+            //create an instance of the class we want to create
+            clsCustomer AnCustomer = new clsCustomer();
+            //create some test data to assign to the property
+            DateTime TestData = DateTime.Now.Date;
+            //assign the date to the property
+            AnCustomer.DateOrdered = TestData;
+            //test to see that the two values are the same
+            Assert.AreEqual(AnCustomer.DateOrdered, TestData);
+        }
 
         [TestMethod]
-        public void MinLessOne()
+        public void DobOK()
         {
+            clsCustomer AnCustomer = new clsCustomer();
 
-            clsCustomer ACustomer = new clsCustomer();
-            string Error = "";
-            int TestData = 0;
-            Error = ACustomer.Valid(TestData);
-            Assert.AreNotEqual(Error, "");
+            Int32 TestData = 1;
+
+            AnCustomer.CustomerId = TestData;
+
+            Assert.AreEqual(AnCustomer.CustomerId, TestData);
         }
+
+        [TestMethod]
+        public void PostcodeOK()
+        {
+            clsCustomer AnCustomer = new clsCustomer();
+
+            Int32 TestData = 1;
+
+            AnCustomer.TotalItem = TestData;
+
+            Assert.AreEqual(AnCustomer.TotalItem, TestData);
+        }
+
+        [TestMethod]
+        public void GdprOK()
+        {
+            clsCustomer AnCustomer = new clsCustomer();
+
+            Double TestData = 15.00;
+
+            AnCustomer.TotalPrice = TestData;
+
+            Assert.AreEqual(AnCustomer.TotalPrice, TestData);
+        }
+        
     }
 }
