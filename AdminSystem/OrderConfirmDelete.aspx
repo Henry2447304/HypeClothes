@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="OrderConfirmDelete.aspx.cs" Inherits="_1_ConfirmDelete" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="OrderConfirmDelete.aspx.cs" Inherits="DeleteOrder" %>
 
 <!DOCTYPE html>
 
@@ -6,9 +6,13 @@
 <head runat="server">
     <title></title>
 </head>
-<body>
+<body style="height: 60px">
     <form id="form1" runat="server">
         <div>
+            Are you sure you want to delete this record?<br />
+            <br />
+            <asp:Button ID="btnYes" runat="server" OnClick="btnYes_Click" Text="Yes" />
+&nbsp;<asp:Button ID="btnNo" runat="server" Text="No" />
         </div>
     </form>
 </body>

@@ -55,7 +55,7 @@ namespace ClassLibrary
                 //create a blank order
                 clsOrder AnOrder = new clsOrder();
                 //read in the fields from the current record
-                AnOrder.Available = Convert.ToBoolean(DB.DataTable.Rows[Index]["Available"]);
+                AnOrder.Available = Convert.ToBoolean(DB.DataTable.Rows[Index]["ItemAvailable"]);
                 AnOrder.OrderID = Convert.ToInt32(DB.DataTable.Rows[Index]["OrderID"]);
                 AnOrder.TotalItem = Convert.ToInt32(DB.DataTable.Rows[Index]["TotalItem"]);
                 AnOrder.TotalPrice = Convert.ToDouble(DB.DataTable.Rows[Index]["TotalPrice"]);
@@ -101,6 +101,7 @@ namespace ClassLibrary
             //connect to the database
             clsDataConnection DB = new clsDataConnection();
             //set the parameters for the stored procedure
+            DB.AddParameter("@OrderID", mThisOrder.OrderID);
             DB.AddParameter("@TotalItem", mThisOrder.TotalItem);
             DB.AddParameter("@TotalPrice", mThisOrder.TotalPrice);
             DB.AddParameter("@DeliveryAddress", mThisOrder.DeliveryAddress);
@@ -112,7 +113,13 @@ namespace ClassLibrary
 
         public void Delete()
         {
-            throw new NotImplementedException();
+            //deletes the record pointed to by thisOrder
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
+            //set the parameters for the stored procedure
+            DB.AddParameter("@OrderID", mThisOrder.OrderID);
+            //execute the stored procedure
+            DB.Execute("sproc_tblOrder_Delete");
         }
     }
 }
