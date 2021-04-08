@@ -85,6 +85,7 @@ namespace ClassLibrary
             //connect to the database
             clsDataConnection DB = new clsDataConnection();
             //set the parameters for the stored procedure
+            DB.AddParameter("@OrderID", mThisOrder.OrderID);
             DB.AddParameter("@TotalItem", mThisOrder.TotalItem);
             DB.AddParameter("@TotalPrice", mThisOrder.TotalPrice);
             DB.AddParameter("@DeliveryAddress", mThisOrder.DeliveryAddress);
@@ -107,6 +108,11 @@ namespace ClassLibrary
             DB.AddParameter("@ItemAvailable", mThisOrder.Available);
             //execute the stored procedure
             DB.Execute("sproc_tblOrder_Update");
+        }
+
+        public void Delete()
+        {
+            throw new NotImplementedException();
         }
     }
 }

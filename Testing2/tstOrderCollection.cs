@@ -125,5 +125,26 @@ namespace Test_FrameWork
             AllOrders.ThisOrder.Find(PrimaryKey);
             Assert.AreEqual(AllOrders.ThisOrder, TestItem);
         }
+
+        [TestMethod]
+        public void DeleteMethodOK()
+        {
+            clsOrderCollection AllOrders = new clsOrderCollection();
+            clsOrder TestItem = new clsOrder();
+            Int32 PrimaryKey = 0;
+            TestItem.Available = true;
+            TestItem.OrderID = 1234;
+            TestItem.TotalItem = 10;
+            TestItem.TotalPrice = 15.55;
+            TestItem.DeliveryAddress = "40, Some Street, Leicester, LE1 1AB";
+            TestItem.DateOrdered = DateTime.Now.Date;
+            AllOrders.ThisOrder = TestItem;
+            PrimaryKey = AllOrders.Add();
+            TestItem.OrderID = PrimaryKey;
+            AllOrders.ThisOrder.Find(PrimaryKey);
+            AllOrders.Delete();
+            Boolean Found = AllOrders.ThisOrder.Find(PrimaryKey);
+            Assert.IsFalse(Found);
+        }
     }
 }
