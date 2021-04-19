@@ -81,45 +81,13 @@ namespace ClassLibrary
 
         public int Add()
         {
-            //adds a new record to the database based on the values of thisOrder
-            //connect to the database
             clsDataConnection DB = new clsDataConnection();
-            //set the parameters for the stored procedure
-            DB.AddParameter("@OrderID", mThisOrder.OrderID);
+            DB.AddParameter("@DateOrdered", mThisOrder.DateOrdered);
             DB.AddParameter("@TotalItem", mThisOrder.TotalItem);
             DB.AddParameter("@TotalPrice", mThisOrder.TotalPrice);
             DB.AddParameter("@DeliveryAddress", mThisOrder.DeliveryAddress);
-            DB.AddParameter("@DateOrdered", mThisOrder.DateOrdered);
             DB.AddParameter("@ItemAvailable", mThisOrder.Available);
-            //execute the query returning the primary key value
             return DB.Execute("sproc_tblOrder_Insert");
-        }
-
-        public void Update()
-        {
-            //update an existing record based on the value of thisOrder
-            //connect to the database
-            clsDataConnection DB = new clsDataConnection();
-            //set the parameters for the stored procedure
-            DB.AddParameter("@OrderID", mThisOrder.OrderID);
-            DB.AddParameter("@TotalItem", mThisOrder.TotalItem);
-            DB.AddParameter("@TotalPrice", mThisOrder.TotalPrice);
-            DB.AddParameter("@DeliveryAddress", mThisOrder.DeliveryAddress);
-            DB.AddParameter("@DateOrdered", mThisOrder.DateOrdered);
-            DB.AddParameter("@ItemAvailable", mThisOrder.Available);
-            //execute the stored procedure
-            DB.Execute("sproc_tblOrder_Update");
-        }
-
-        public void Delete()
-        {
-            //deletes the record pointed to by thisOrder
-            //connect to the database
-            clsDataConnection DB = new clsDataConnection();
-            //set the parameters for the stored procedure
-            DB.AddParameter("@OrderID", mThisOrder.OrderID);
-            //execute the stored procedure
-            DB.Execute("sproc_tblOrder_Delete");
         }
     }
 }
