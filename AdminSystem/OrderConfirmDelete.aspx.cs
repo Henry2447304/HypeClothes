@@ -24,7 +24,7 @@ public partial class DeleteOrder : System.Web.UI.Page
         //find the record to delete
         OrderList.ThisOrder.Find(OrderID);
         //delete the record
-        OrderList.Delete();
+        //OrderList.Delete();
         //redirect back to the main page
         Response.Redirect("OrderList.aspx");
     }

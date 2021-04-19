@@ -2,7 +2,7 @@
 using ClassLibrary;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Testing2
+namespace TestingOrder
 {
     [TestClass]
     public class tstOrder

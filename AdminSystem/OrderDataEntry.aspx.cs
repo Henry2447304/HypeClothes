@@ -16,62 +16,29 @@ public partial class _1_DataEntry : System.Web.UI.Page
 
     protected void btnOK_Click(object sender, EventArgs e)
     {
-        //create a new instance of clsOrder
         clsOrder AnOrder = new clsOrder();
-        //capture the order id
         string OrderID = txtOrderID.Text;
-        //capture the total item
         string TotalItem = txtTotalItem.Text;
-        //capture the total price
         string TotalPrice = txtTotalPrice.Text;
-        //capture the delivery address
         string DeliveryAddress = txtDeliveryAddress.Text;
-        //capture the date ordered
         string DateOrdered = txtDateOrdered.Text;
-        //variable to store any error messages
         string Error = "";
-        //validate the data
         Error = AnOrder.Valid(DateOrdered, DeliveryAddress);
         if (Error == "")
         {
-            //capture the order id
             AnOrder.OrderID = Convert.ToInt32(OrderID);
-            //capture the total item
             AnOrder.TotalItem = Convert.ToInt32(TotalItem);
-            //capture the total price
             AnOrder.TotalPrice = Convert.ToDouble(TotalPrice);
-            //capture the delivery address
             AnOrder.DeliveryAddress = DeliveryAddress;
-            //capture date ordered
             AnOrder.DateOrdered = Convert.ToDateTime(DateOrdered);
-            //capture available
             AnOrder.Available = chkAvailable.Checked;
-            //create a new instance of the order collection
             clsOrderCollection OrderList = new clsOrderCollection();
-            //if this is a new record i.e. OrderID = -1 then add the data
-            if (OrderID == "-1")
-            {
-                //set the ThisOrder property
-                OrderList.ThisOrder = AnOrder;
-                //add the new record
-                OrderList.Add();
-            }
-            //otherwise it must be an update
-            else
-            {
-                //find the record to update
-                OrderList.ThisOrder.Find(Convert.ToInt32(OrderID));
-                //set thisOrder property
-                OrderList.ThisOrder = AnOrder;
-                //update the record
-                OrderList.Update();
-            }
-            //navigate to the list page
+            OrderList.ThisOrder = AnOrder;
+            OrderList.Add();
             Response.Redirect("OrderList.aspx");
         }
         else
         {
-            //display the error message
             lblError.Text = Error;
         }
     }
