@@ -6,78 +6,59 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using ClassLibrary;
 
-public partial class _1_List: System.Web.UI.Page
+public partial class _1_List : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if this is the first time the page is displayed
         if (IsPostBack == false)
         {
-            //update the list box
-            DisplayOrder();
+            DisplayOrders();
         }
     }
 
-    void DisplayOrder()
+    void DisplayOrders()
     {
         clsOrderCollection Orders = new clsOrderCollection();
-        //set the data source to the list of counties in the collection
         lstOrderList.DataSource = Orders.OrderList;
-        //set the name of primary key
         lstOrderList.DataValueField = "OrderID";
-        //set the data field to display
-        lstOrderList.DataTextField = "DeliveryAddress";
-        //bind the data to the list
+        lstOrderList.DataTextField = "OrderID";
         lstOrderList.DataBind();
     }
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        //store -1 into the session object to indicate this is a new record
         Session["OrderID"] = -1;
-        //redirect to the data entry page
-        Response.Redirect("OrderViewer.aspx");
+        Response.Redirect("OrderDataEntry.aspx");
     }
 
     protected void btnEdit_Click(object sender, EventArgs e)
     {
-        //var to store the primary key value of the record to be edited
         Int32 OrderID;
-        //if a record has been selected from the list
+
         if (lstOrderList.SelectedIndex != -1)
         {
-            //get the primary key value of the record to edit
             OrderID = Convert.ToInt32(lstOrderList.SelectedValue);
-            //store the data in the session object
             Session["OrderID"] = OrderID;
-            //redirect to the edit page
-            Response.Redirect("OrderViewer.aspx");
+            Response.Redirect("OrderDataEntry.aspx");
         }
-        else  // if no record has been selected
+        else
         {
-            //display an error
-            lblError.Text = "Please select a record to delete from the list : ";
+            lblError.Text = "Please select a record to delete from the list";
         }
-
     }
 
     protected void btnDelete_Click(object sender, EventArgs e)
     {
-        //var to store the primary key value of the record to be deleted
         Int32 OrderID;
-        //if a record has been selected from the list
+
         if (lstOrderList.SelectedIndex != -1)
         {
-            //get the primary key value of the record to delete
-            OrderID = Convert.ToInt32(lstOrderList.SelectedIndex);
-            //store the data in the session object
+            OrderID = Convert.ToInt32(lstOrderList.SelectedValue);
             Session["OrderID"] = OrderID;
-            //redirect to the delete page
             Response.Redirect("OrderConfirmDelete.aspx");
         }
-        else //if no record has been selected
+        else
         {
-            //display an error
             lblError.Text = "Please select a record to delete from the list";
         }
     }

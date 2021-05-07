@@ -8,16 +8,36 @@ using ClassLibrary;
 
 public partial class _1_DataEntry : System.Web.UI.Page
 {
-
+    Int32 OrderID;
     protected void Page_Load(object sender, EventArgs e)
     {
+        OrderID = Convert.ToInt32(Session["OrderID"]);
+        if (IsPostBack == false)
+        {
+            if (OrderID != -1)
+            {
+                DisplayOrders();
+            }
+        }
+    }
+
+    void DisplayOrders()
+    {
+        clsOrderCollection OrderBook = new clsOrderCollection();
+        OrderBook.ThisOrder.Find(OrderID);
+        txtOrderID.Text = OrderBook.ThisOrder.OrderID.ToString();
+        txtTotalItem.Text = OrderBook.ThisOrder.TotalItem.ToString();
+        txtTotalPrice.Text = OrderBook.ThisOrder.TotalPrice.ToString();
+        txtDeliveryAddress.Text = OrderBook.ThisOrder.DeliveryAddress;
+        txtDateOrdered.Text = OrderBook.ThisOrder.DateOrdered.ToString();
+        chkAvailable.Checked = OrderBook.ThisOrder.ItemAvailable;
 
     }
 
     protected void btnOK_Click(object sender, EventArgs e)
     {
         clsOrder AnOrder = new clsOrder();
-        string OrderID = txtOrderID.Text;
+        Int32 OrderID = Convert.ToInt32(txtOrderID.Text);
         string TotalItem = txtTotalItem.Text;
         string TotalPrice = txtTotalPrice.Text;
         string DeliveryAddress = txtDeliveryAddress.Text;
@@ -26,15 +46,25 @@ public partial class _1_DataEntry : System.Web.UI.Page
         Error = AnOrder.Valid(DateOrdered, DeliveryAddress);
         if (Error == "")
         {
-            AnOrder.OrderID = Convert.ToInt32(OrderID);
+            AnOrder.OrderID = OrderID;
             AnOrder.TotalItem = Convert.ToInt32(TotalItem);
             AnOrder.TotalPrice = Convert.ToDouble(TotalPrice);
             AnOrder.DeliveryAddress = DeliveryAddress;
             AnOrder.DateOrdered = Convert.ToDateTime(DateOrdered);
-            AnOrder.Available = chkAvailable.Checked;
+            AnOrder.ItemAvailable = chkAvailable.Checked;
             clsOrderCollection OrderList = new clsOrderCollection();
-            OrderList.ThisOrder = AnOrder;
-            OrderList.Add();
+
+            if (OrderID == -1)
+            {
+                OrderList.ThisOrder = AnOrder;
+                OrderList.Add();
+            }
+            else
+            {
+                OrderList.ThisOrder.Find(OrderID);
+                OrderList.ThisOrder = AnOrder;
+                OrderList.Update();
+            }
             Response.Redirect("OrderList.aspx");
         }
         else
@@ -43,7 +73,7 @@ public partial class _1_DataEntry : System.Web.UI.Page
         }
     }
 
-    protected void btnFind_Click1(object sender, EventArgs e)
+    protected void btnFind_Click(object sender, EventArgs e)
     {
         //create an instance of the address class
         clsOrder AnOrder = new clsOrder();
