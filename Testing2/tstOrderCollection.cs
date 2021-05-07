@@ -2,8 +2,7 @@
 using ClassLibrary;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-
-namespace Test_FrameWork
+namespace Test_Framework
 {
     [TestClass]
     public class tstOrderCollection
@@ -11,35 +10,25 @@ namespace Test_FrameWork
         [TestMethod]
         public void InstanceOK()
         {
-            //create an instance of the class we want to create
             clsOrderCollection AllOrders = new clsOrderCollection();
-            //test to see that it exists
             Assert.IsNotNull(AllOrders);
         }
 
         [TestMethod]
         public void OrderListOK()
         {
-            //create an instance of the class we want to create
             clsOrderCollection AllOrders = new clsOrderCollection();
-            //create some test data to assign to the property
-            //in this case the data needs to be a list of objects
             List<clsOrder> TestList = new List<clsOrder>();
-            //add an item to the list
-            //create the item of test data
             clsOrder TestItem = new clsOrder();
-            //set its properties
-            TestItem.Available = true;
+            TestItem.ItemAvailable = true;
             TestItem.OrderID = 1234;
             TestItem.TotalItem = 10;
             TestItem.TotalPrice = 15.55;
-            TestItem.DeliveryAddress = "40, Some Street, Leicester, LE1 1AB";
+            TestItem.DeliveryAddress = "1, A Street, LE1 5AB, Leicester";
             TestItem.DateOrdered = DateTime.Now.Date;
-            //add the item to the test list
+
             TestList.Add(TestItem);
-            //assign the data to the property
             AllOrders.OrderList = TestList;
-            //test to see that the two values are the same
             Assert.AreEqual(AllOrders.OrderList, TestList);
         }
 
@@ -47,15 +36,15 @@ namespace Test_FrameWork
         public void ThisOrderPropertyOK()
         {
             clsOrderCollection AllOrders = new clsOrderCollection();
-            clsOrder TestItem = new clsOrder();
-            TestItem.Available = true;
-            TestItem.OrderID = 1234;
-            TestItem.TotalItem = 10;
-            TestItem.TotalPrice = 15.55;
-            TestItem.DeliveryAddress = "40, Some Street, Leicester, LE1 1AB";
-            TestItem.DateOrdered = DateTime.Now.Date;
-            AllOrders.ThisOrder = TestItem;
-            Assert.AreEqual(AllOrders.ThisOrder, TestItem);
+            clsOrder TestOrder = new clsOrder();
+            TestOrder.ItemAvailable = true;
+            TestOrder.OrderID = 1234;
+            TestOrder.TotalItem = 10;
+            TestOrder.TotalPrice = 15.55;
+            TestOrder.DeliveryAddress = "1, A Street, LE1 5AB, Leicester";
+            TestOrder.DateOrdered = DateTime.Now.Date;
+            AllOrders.ThisOrder = TestOrder;
+            Assert.AreEqual(AllOrders.ThisOrder, TestOrder);
         }
 
         [TestMethod]
@@ -64,11 +53,11 @@ namespace Test_FrameWork
             clsOrderCollection AllOrders = new clsOrderCollection();
             List<clsOrder> TestList = new List<clsOrder>();
             clsOrder TestItem = new clsOrder();
-            TestItem.Available = true;
+            TestItem.ItemAvailable = true;
             TestItem.OrderID = 1234;
             TestItem.TotalItem = 10;
             TestItem.TotalPrice = 15.55;
-            TestItem.DeliveryAddress = "40, Some Street, Leicester, LE1 1AB";
+            TestItem.DeliveryAddress = "1, A Street, LE1 5AB, Leicester";
             TestItem.DateOrdered = DateTime.Now.Date;
             TestList.Add(TestItem);
             AllOrders.OrderList = TestList;
@@ -81,17 +70,66 @@ namespace Test_FrameWork
             clsOrderCollection AllOrders = new clsOrderCollection();
             clsOrder TestItem = new clsOrder();
             Int32 PrimaryKey = 0;
-            TestItem.Available = true;
+            TestItem.ItemAvailable = true;
             TestItem.OrderID = 1234;
             TestItem.TotalItem = 10;
             TestItem.TotalPrice = 15.55;
-            TestItem.DeliveryAddress = "89, Second Street, Leicester, LE1 1AB";
+            TestItem.DeliveryAddress = "1, A Street, LE1 5AB, Leicester";
             TestItem.DateOrdered = DateTime.Now.Date;
             AllOrders.ThisOrder = TestItem;
             PrimaryKey = AllOrders.Add();
             TestItem.OrderID = PrimaryKey;
             AllOrders.ThisOrder.Find(PrimaryKey);
             Assert.AreEqual(AllOrders.ThisOrder, TestItem);
+        }
+
+        [TestMethod]
+        public void UpdateMethodOK()
+        {
+            clsOrderCollection AllOrders = new clsOrderCollection();
+            clsOrder TestItem = new clsOrder();
+            Int32 PrimaryKey = 0;
+            TestItem.ItemAvailable = true;
+            TestItem.OrderID = 1234;
+            TestItem.TotalItem = 10;
+            TestItem.TotalPrice = 15.55;
+            TestItem.DeliveryAddress = "1, A Street, LE1 5AB, Leicester";
+            TestItem.DateOrdered = DateTime.Now.Date;
+            AllOrders.ThisOrder = TestItem;
+            PrimaryKey = AllOrders.Add();
+            TestItem.OrderID = PrimaryKey;
+
+            TestItem.ItemAvailable = false;
+            TestItem.OrderID = 4567;
+            TestItem.TotalItem = 15;
+            TestItem.TotalPrice = 17.99;
+            TestItem.DeliveryAddress = "2, B Street, LE1 5AB, Leicester";
+            TestItem.DateOrdered = DateTime.Now.Date;
+            AllOrders.ThisOrder = TestItem;
+            AllOrders.Update();
+            AllOrders.ThisOrder.Find(PrimaryKey);
+            Assert.AreEqual(AllOrders.ThisOrder, TestItem);
+        }
+
+        [TestMethod]
+        public void DeleteMethodOK()
+        {
+            clsOrderCollection AllOrders = new clsOrderCollection();
+            clsOrder TestItem = new clsOrder();
+            Int32 PrimaryKey = 0;
+            TestItem.ItemAvailable = true;
+            TestItem.OrderID = 1234;
+            TestItem.TotalItem = 10;
+            TestItem.TotalPrice = 15.55;
+            TestItem.DeliveryAddress = "1, A Street, LE1 5AB, Leicester";
+            TestItem.DateOrdered = DateTime.Now.Date;
+            AllOrders.ThisOrder = TestItem;
+            PrimaryKey = AllOrders.Add();
+            TestItem.OrderID = PrimaryKey;
+            AllOrders.ThisOrder.Find(PrimaryKey);
+            AllOrders.Delete();
+            Boolean Found = AllOrders.ThisOrder.Find(PrimaryKey);
+            Assert.IsFalse(Found);
         }
     }
 }

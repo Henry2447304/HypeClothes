@@ -13,7 +13,7 @@
 &nbsp;
             <asp:TextBox ID="txtOrderID" runat="server" style="margin-top: 0px"></asp:TextBox>
             &nbsp;
-            &nbsp;<asp:Button ID="btnFind" runat="server" OnClick="btnFind_Click1" Text="Find" />
+            &nbsp;<asp:Button ID="btnFind" runat="server" OnClick="btnFind_Click" Text="Find" />
             <p>
 &nbsp;<asp:Label ID="lblTotalItem" runat="server" Text="Total Item" width="57px"></asp:Label>
 &nbsp;

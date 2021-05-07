@@ -4,16 +4,16 @@ namespace ClassLibrary
 {
     public class clsOrder
     {
-        private bool mAvailable;
-        public bool Available
+        private bool mItemAvailable;
+        public bool ItemAvailable
         {
             get
             {
-                return mAvailable;
+                return mItemAvailable;
             }
             set
             {
-                mAvailable = value;
+                mItemAvailable = value;
             }
         }
         private DateTime mDateOrdered;
@@ -83,17 +83,26 @@ namespace ClassLibrary
 
         public DateTime DateTemp { get; private set; }
 
-        public bool Find(int orderID)
+        public bool Find(int OrderID)
         {
-            //set the private data members to the test data value
-            mOrderID = 1234;
-            mDateOrdered = Convert.ToDateTime("09/03/2021");
-            mAvailable = true;
-            mTotalItem = 10;
-            mTotalPrice = 15.55;
-            mDeliveryAddress = "40, Some Street, Leicester, LE1 1AB";
-            //alaways return true
-            return true;
+            clsDataConnection DB = new clsDataConnection();
+            DB.AddParameter("@OrderID", OrderID);
+            DB.Execute("sproc_tblOrder_FilterByOrderID");
+            if (DB.Count == 1)
+            {
+                mOrderID = Convert.ToInt32(DB.DataTable.Rows[0]["OrderID"]);
+                mTotalItem = Convert.ToInt32(DB.DataTable.Rows[0]["TotalItem"]);
+                mTotalPrice = Convert.ToDouble(DB.DataTable.Rows[0]["TotalPrice"]);
+                mDeliveryAddress = Convert.ToString(DB.DataTable.Rows[0]["DeliveryAddress"]);
+                mDateOrdered = Convert.ToDateTime(DB.DataTable.Rows[0]["DateOrdered"]);
+                mItemAvailable = Convert.ToBoolean(DB.DataTable.Rows[0]["ItemAvailable"]);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
         public string Valid(string dateOrdered, string deliveryAddress)

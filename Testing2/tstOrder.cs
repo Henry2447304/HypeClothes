@@ -29,9 +29,9 @@ namespace TestingOrder
             //create some test data to assign to the order
             Boolean TestData = true;
             //assign the data to the order
-            AnOrder.Available = TestData;
+            AnOrder.ItemAvailable = TestData;
             //test to see that the two values are the same
-            Assert.AreEqual(AnOrder.Available, TestData);
+            Assert.AreEqual(AnOrder.ItemAvailable, TestData);
         }
 
         [TestMethod]
@@ -103,7 +103,7 @@ namespace TestingOrder
             //boolean variable to store the results of the validation
             Boolean Found = false;
             //create some test data to use with the method
-            Int32 OrderID = 1234;
+            Int32 OrderID = 4568;
             //invoke the method
             Found = AnOrder.Find(OrderID);
             //test to see if the result is true
@@ -120,11 +120,11 @@ namespace TestingOrder
             //boolean variable to record if data is OK (assume it is)
             Boolean OK = true;
             //create some test data to use with the method
-            Int32 OrderID = 1234;
+            Int32 OrderID = 4568;
             //invoke the method
             Found = AnOrder.Find(OrderID);
             //check the order id
-            if (AnOrder.OrderID != 1234)
+            if (AnOrder.OrderID != 4568)
             {
                 OK = false;
             }
@@ -138,9 +138,9 @@ namespace TestingOrder
             clsOrder AnOrder = new clsOrder();
             Boolean Found = false;
             Boolean OK = true;
-            Int32 OrderID = 1234;
+            Int32 OrderID = 4568;
             Found = AnOrder.Find(OrderID);
-            if (AnOrder.DateOrdered != Convert.ToDateTime("09/03/2021"))
+            if (AnOrder.DateOrdered != Convert.ToDateTime("08/04/2021"))
             {
                 OK = false;
             }
@@ -153,9 +153,9 @@ namespace TestingOrder
             clsOrder AnOrder = new clsOrder();
             Boolean Found = false;
             Boolean OK = true;
-            Int32 OrderID = 1234;
+            Int32 OrderID = 4568;
             Found = AnOrder.Find(OrderID);
-            if (AnOrder.Available != true)
+            if (AnOrder.ItemAvailable != true)
             {
                 OK = false;
             }
@@ -168,9 +168,9 @@ namespace TestingOrder
             clsOrder AnOrder = new clsOrder();
             Boolean Found = false;
             Boolean OK = true;
-            Int32 OrderID = 1234;
+            Int32 OrderID = 4568;
             Found = AnOrder.Find(OrderID);
-            if (AnOrder.TotalItem != Convert.ToInt32(10))
+            if (AnOrder.TotalItem != Convert.ToInt32(9))
             {
                 OK = false;
             }
@@ -183,9 +183,9 @@ namespace TestingOrder
             clsOrder AnOrder = new clsOrder();
             Boolean Found = false;
             Boolean OK = true;
-            Int32 OrderID = 1234;
+            Int32 OrderID = 4568;
             Found = AnOrder.Find(OrderID);
-            if (AnOrder.TotalPrice != Convert.ToDouble(15.55))
+            if (AnOrder.TotalPrice != Convert.ToDouble(83.00))
             {
                 OK = false;
             }
@@ -198,9 +198,9 @@ namespace TestingOrder
             clsOrder AnOrder = new clsOrder();
             Boolean Found = false;
             Boolean OK = true;
-            Int32 OrderID = 1234;
+            Int32 OrderID = 4568;
             Found = AnOrder.Find(OrderID);
-            if (AnOrder.DeliveryAddress != "40, Some Street, Leicester, LE1 1AB")
+            if (AnOrder.DeliveryAddress != "87, a street, le1 7th,leicester")
             {
                 OK = false;
             }

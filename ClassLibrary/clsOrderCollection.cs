@@ -5,26 +5,20 @@ namespace ClassLibrary
 {
     public class clsOrderCollection
     {
-        //private data member for the list
         List<clsOrder> mOrderList = new List<clsOrder>();
-        //private data member thisOrder
         clsOrder mThisOrder = new clsOrder();
 
-        //public property for the order list
         public List<clsOrder> OrderList
         {
             get
             {
-                //return the private data
                 return mOrderList;
             }
             set
             {
-                //set the private data
                 mOrderList = value;
             }
         }
-        //public property for count
         public int Count
         {
             get
@@ -33,40 +27,9 @@ namespace ClassLibrary
             }
             set
             {
-                
-            }
-        }
-    
-        public clsOrderCollection()
-        {
-            //var for the index
-            Int32 Index = 0;
-            //var to store the record count
-            Int32 RecordCount = 0;
-            //object for data connection
-            clsDataConnection DB = new clsDataConnection();
-            //execute the stored procedure
-            DB.Execute("sproc_tblOrder_SelectAll");
-            //get the count of records
-            RecordCount = DB.Count;
-            //while there are records to process
-            while (Index < RecordCount)
-            {
-                //create a blank order
-                clsOrder AnOrder = new clsOrder();
-                //read in the fields from the current record
-                AnOrder.Available = Convert.ToBoolean(DB.DataTable.Rows[Index]["ItemAvailable"]);
-                AnOrder.OrderID = Convert.ToInt32(DB.DataTable.Rows[Index]["OrderID"]);
-                AnOrder.TotalItem = Convert.ToInt32(DB.DataTable.Rows[Index]["TotalItem"]);
-                AnOrder.TotalPrice = Convert.ToDouble(DB.DataTable.Rows[Index]["TotalPrice"]);
-                AnOrder.DeliveryAddress = Convert.ToString(DB.DataTable.Rows[Index]["DeliveryAddress"]);
-                AnOrder.DateOrdered = Convert.ToDateTime(DB.DataTable.Rows[Index]["DateOrdered"]);
-                mOrderList.Add(AnOrder);
-                //point at the next record
-                Index++;
-            }
-        }
 
+            }
+        }
         public clsOrder ThisOrder
         {
             get
@@ -79,15 +42,57 @@ namespace ClassLibrary
             }
         }
 
+        public clsOrderCollection()
+        {
+            Int32 Index = 0;
+            Int32 RecordCount = 0;
+            clsDataConnection DB = new clsDataConnection();
+            DB.Execute("sproc_tblOrder_SelectAll");
+            RecordCount = DB.Count;
+            while (Index < RecordCount)
+            {
+                clsOrder AnOrder = new clsOrder();
+                AnOrder.ItemAvailable = Convert.ToBoolean(DB.DataTable.Rows[Index]["ItemAvailable"]);
+                AnOrder.OrderID = Convert.ToInt32(DB.DataTable.Rows[Index]["OrderID"]);
+                AnOrder.TotalItem = Convert.ToInt32(DB.DataTable.Rows[Index]["TotalItem"]);
+                AnOrder.TotalPrice = Convert.ToDouble(DB.DataTable.Rows[Index]["TotalPrice"]);
+                AnOrder.DeliveryAddress = Convert.ToString(DB.DataTable.Rows[Index]["DeliveryAddress"]);
+                AnOrder.DateOrdered = Convert.ToDateTime(DB.DataTable.Rows[Index]["DateOrdered"]);
+
+                mOrderList.Add(AnOrder);
+                Index++;
+            }
+
+        }
+
         public int Add()
         {
             clsDataConnection DB = new clsDataConnection();
-            DB.AddParameter("@DateOrdered", mThisOrder.DateOrdered);
             DB.AddParameter("@TotalItem", mThisOrder.TotalItem);
             DB.AddParameter("@TotalPrice", mThisOrder.TotalPrice);
             DB.AddParameter("@DeliveryAddress", mThisOrder.DeliveryAddress);
-            DB.AddParameter("@ItemAvailable", mThisOrder.Available);
+            DB.AddParameter("@DateOrdered", mThisOrder.DateOrdered);
+            DB.AddParameter("@ItemAvailable", mThisOrder.ItemAvailable);
             return DB.Execute("sproc_tblOrder_Insert");
+        }
+
+        public void Update()
+        {
+            clsDataConnection DB = new clsDataConnection();
+            DB.AddParameter("@OrderID", mThisOrder.OrderID);
+            DB.AddParameter("@TotalItem", mThisOrder.TotalItem);
+            DB.AddParameter("@TotalPrice", mThisOrder.TotalPrice);
+            DB.AddParameter("@DeliveryAddress", mThisOrder.DeliveryAddress);
+            DB.AddParameter("@DateOrdered", mThisOrder.DateOrdered);
+            DB.AddParameter("@ItemAvailable", mThisOrder.ItemAvailable);
+            DB.Execute("sproc_tblOrder_Update");
+        }
+
+        public void Delete()
+        {
+            clsDataConnection DB = new clsDataConnection();
+            DB.AddParameter("@OrderID", mThisOrder.OrderID);
+            DB.Execute("sproc_tblOrder_Delete");
         }
     }
 }
