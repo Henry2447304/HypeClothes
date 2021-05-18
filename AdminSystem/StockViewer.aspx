@@ -7,7 +7,7 @@
     <title></title>
 </head>
 <body>
-    this is the order entry page
+    this is the stock viewer page
     <form id="form1" runat="server">
         <div>
         </div>
