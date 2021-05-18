@@ -6,7 +6,7 @@ namespace Testing5
 {
     [TestClass]
     public class tstStock
-    {
+    { 
         [TestMethod]
         public void InstanceOK()
         {
