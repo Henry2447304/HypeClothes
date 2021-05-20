@@ -23,9 +23,9 @@ public partial class _1Viewer : System.Web.UI.Page
         //display the Postcode for this entry
         Response.Write(AnCustomer.Postcode);
         //display the DoB for this entry
-        Response.Write(AnCustomer.Dob);
+        Response.Write(AnCustomer.DoB);
         //display the Gdpr for this entry
-        Response.Write(AnCustomer.Gdpr);
+        Response.Write(AnCustomer.GdprRequest);
 
     }
 }

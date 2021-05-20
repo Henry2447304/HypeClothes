@@ -66,9 +66,9 @@ namespace Testing1
             //create some test data to assign to the property
             DateTime TestData = DateTime.Now.Date;
             //assign the date to the property
-            AnCustomer.Dob = TestData;
+            AnCustomer.DoB = TestData;
             //test to see that the two values are the same
-            Assert.AreEqual(AnCustomer.Dob, TestData);
+            Assert.AreEqual(AnCustomer.DoB, TestData);
         }
         [TestMethod]
         public void PostcodeOK()
@@ -84,8 +84,8 @@ namespace Testing1
         {
             clsCustomer AnCustomer = new clsCustomer();
             Boolean TestData = true;
-            AnCustomer.Gdpr = TestData;
-            Assert.AreEqual(AnCustomer.Gdpr, TestData);
+            AnCustomer.GdprRequest = TestData;
+            Assert.AreEqual(AnCustomer.GdprRequest, TestData);
         }
 
         [TestMethod]
@@ -562,7 +562,7 @@ namespace Testing1
             //invoke the method
             Found = ACustomer.Find(CustomerId);
             //check the date
-            if (ACustomer.Dob != Convert.ToDateTime("10/04/1998"))
+            if (ACustomer.DoB != Convert.ToDateTime("10/04/1998"))
             {
                 OK = false;
             }
