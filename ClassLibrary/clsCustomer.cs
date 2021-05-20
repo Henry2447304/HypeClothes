@@ -99,6 +99,18 @@ namespace ClassLibrary
         {
             //set the private data members to the test data value
             mCustomerId = 1;
+
+            mName = "Bruce Lee";
+
+            mAddress = "Turbo Road";
+
+            mPostcode = "PE10 1AB";
+
+            mDoB = Convert.ToDateTime("10/04/1998");
+
+            mGdprRequest = true;
+
+         
             //always return true
             return true;
         }
