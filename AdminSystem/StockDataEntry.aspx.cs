@@ -23,16 +23,37 @@ public partial class _1_DataEntry : System.Web.UI.Page
 
     }
 
-    protected void BtnOK_Click(object sender, EventArgs e)
+    protected void btnOK_Click(object sender, EventArgs e)
     {
         //create a new instance for class stock
         clsStock AnStock = new clsStock();
         //capture the product description
-        AnStock.ProductDescript = txtProductDescription.Text;
-        //store product description
-        Session["AnProduct"] = AnStock;
-        //navigate to the viewer page
-        Response.Redirect("StockViewer.aspx");
+        string ProductDescript = txtProductDescription.Text;
+        string Cost = txtPrice.Text;
+        string StockNo = txtStockQuantity.Text;
+        string DateAdded = txtStockDate.Text;
+        //variable to store any error messages
+        string Error = "";
+        //validate the data
+        Error = AnStock.Valid(ProductDescript, Cost, StockNo, DateAdded);
+        if (Error == "")
+
+        {
+            //capture the product description
+            AnStock.ProductDescript = ProductDescript;
+            AnStock.Cost = Cost;
+            AnStock.StockNo = StockNo;
+            AnStock.DateAdded = Convert.ToDateTime(DateAdded);
+            //store product description
+            Session["AnStock"] = AnStock;
+            //navigate to the viewer page
+            Response.Redirect("StockViewer.aspx");
+        }
+        else
+        {
+            //display the error message
+            lblError.Text = Error;
+        }
     }
 
     protected void btnFind_Click(object sender, EventArgs e)
