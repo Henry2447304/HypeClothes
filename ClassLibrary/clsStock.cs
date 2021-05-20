@@ -6,7 +6,7 @@ namespace ClassLibrary
     {
         //private data member for the product ID
         private Int32 mProductID;
-        public Int32 ProductNo
+        public Int32 ProductID
         {
             get
             {
@@ -65,6 +65,7 @@ namespace ClassLibrary
             }
         }
 
+        private DateTime mDateAdded;
         public DateTime DateAdded
         {
             get
@@ -79,8 +80,6 @@ namespace ClassLibrary
 
         //private data member for active
         private Boolean mInStck;
-        private readonly DateTime mDateAdded;
-
         //public property for active
         public bool InStck
         {
@@ -130,5 +129,75 @@ namespace ClassLibrary
         {
             throw new NotImplementedException();
         }
+
+        public string Valid(string productDescript, string cost, string stockNo, string dateAdded)
+        {
+            //create a string variable to store the error
+            String Error = "";
+            //createt a temporary variable to store data values
+            DateTime DateTemp;
+            //if the product description is blank
+            if (productDescript.Length == 0)
+            {
+                //record the error
+                Error = Error + "The product description may be blank : ";
+            }
+            //return any error messages
+            if (productDescript.Length > 25)
+            {
+                //record the error
+                Error = Error + "The product description must be less than 25 characters : ";
+            }
+            try
+            {
+                //copy the dateAdded value to the DateTemp variable
+                DateTemp = Convert.ToDateTime(dateAdded);
+                if (DateTemp < DateTime.Now.Date)
+                {
+                    //record the error
+                    Error = Error + "The date cannot be in the past ";
+                }
+                //check to see if the date is greater than today's date
+                if (DateTemp > DateTime.Now.Date)
+                {
+                    //record the error
+                    Error = Error + "The date cannot be in the future : ";
+                }
+            }
+            catch
+            {
+                //record the error
+                Error = Error + "The date was not a valid date : ";
+            }
+            //is the cost blank
+            if (cost.Length == 0)
+            {
+                //record the error
+                Error = Error + "The cost may not be blank : ";
+            }
+            //if the cost is too long
+            if (cost.Length > 7)
+            {
+                //record the error
+                Error = Error + "The cost must be less than 9 characters : ";
+            }
+            //is the town blank
+            if (stockNo.Length == 0)
+            {
+                //record the error
+                Error = Error + "The town may not be blank : ";
+            }
+            //if the town is too long
+            if (stockNo.Length > 7)
+            {
+                //record the error
+                Error = Error + "The stock number must be less than 7 characters : ";
+            }
+
+            //return any error messages
+            return Error;
+            }
+
+        //function for the public validation method
     }
 }
