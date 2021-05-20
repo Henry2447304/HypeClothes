@@ -32,10 +32,15 @@ public partial class _1_DataEntry : System.Web.UI.Page
             AnCustomer.Postcode = txtPostcode.Text;
             //capture the Dob
             AnCustomer.DoB = Convert.ToDateTime(txtDoB.Text);
-            //store the name in the session object
-            Session["AnCustomer"] = AnCustomer;
-            //Navigate to the viewer page
-            Response.Redirect("CustomerViewer.aspx");
+            //cap Gdpr
+            AnCustomer.GdprRequest = chkGdprRequest.Checked;
+            //new cust col
+            clsCustomerCollection CustomerList = new clsCustomerCollection();
+            //set ThisCustomer
+            CustomerList.ThisCustomer = AnCustomer;
+            //add new record
+            CustomerList.Add();
+            Response.Redirect("CustomerList.aspx");
         }
         else
         {

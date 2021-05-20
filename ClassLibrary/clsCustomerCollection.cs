@@ -60,7 +60,7 @@ namespace ClassLibrary
             DB.AddParameter("Postcode", mThisCustomer.Postcode);
             DB.AddParameter("DoB", mThisCustomer.DoB);
             DB.AddParameter("GdprRequest", mThisCustomer.GdprRequest);
-            return DB.Execute("sproc_TblCustomer_Add");
+            return DB.Execute("sproc_TblCustomer_Insert");
         }
         public void Update()
         {
