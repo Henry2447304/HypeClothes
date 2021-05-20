@@ -66,12 +66,12 @@ namespace TestingCustomer
             //create the test customer
             clsCustomer TestCustomer = new clsCustomer();
             //set properties
-            TestCustomer.CustomerID = 1;
-            TestCustomer.Name = "name";
-            TestCustomer.Address = "address";
-            TestCustomer.PhoneNumber = "1234";
-            TestCustomer.DateAdded = DateTime.Now.Date;
-            TestCustomer.Querry = true;
+            TestCustomer.CustomerId = 2;
+            TestCustomer.Name = "a";
+            TestCustomer.Address = "ad";
+            TestCustomer.Postcode = "PP112DD";
+            TestCustomer.DoB = DateTime.Now.Date;
+            TestCustomer.GdprRequest = false;
             //add TestCustomer to the CustomerList
             CustomerList.Add(TestCustomer);
             AllCustomers.CustomerList = CustomerList;
@@ -86,17 +86,17 @@ namespace TestingCustomer
             clsCustomer TestCustomer = new clsCustomer();
             Int32 PrimaryKey = 0;
             //set properties
-            TestCustomer.CustomerID = 1;
-            TestCustomer.Name = "Clark Kent";
-            TestCustomer.Address = "9 Henshaw street";
-            TestCustomer.PhoneNumber = "1239387";
-            TestCustomer.DateAdded = DateTime.Now.Date;
-            TestCustomer.Querry = true;
+            TestCustomer.CustomerId = 5;
+            TestCustomer.Name = "Bruce Lee";
+            TestCustomer.Address = "Turbo Road";
+            TestCustomer.Postcode = "PE10 1AB";
+            TestCustomer.DoB = DateTime.Now.Date;
+            TestCustomer.GdprRequest = true;
             AllCustomers.ThisCustomer = TestCustomer;
             //add customer to key
             PrimaryKey = AllCustomers.Add();
             //set key
-            TestCustomer.CustomerID = PrimaryKey;
+            TestCustomer.CustomerId = PrimaryKey;
             AllCustomers.ThisCustomer.Find(PrimaryKey);
             Assert.AreEqual(AllCustomers.ThisCustomer, TestCustomer);
         }
@@ -109,22 +109,22 @@ namespace TestingCustomer
             clsCustomer TestCustomer = new clsCustomer();
             Int32 PrimaryKey = 0;
             //set properties            
-            TestCustomer.Name = "name";
-            TestCustomer.Address = "address";
-            TestCustomer.PhoneNumber = "1234";
-            TestCustomer.DateAdded = DateTime.Now.Date;
-            TestCustomer.Querry = true;
+            TestCustomer.Name = "a";
+            TestCustomer.Address = "ad";
+            TestCustomer.Postcode = "AA111BB";
+            TestCustomer.DoB = DateTime.Now.Date;
+            TestCustomer.GdprRequest = true;
             AllCustomers.ThisCustomer = TestCustomer;
             //add customer to key
             PrimaryKey = AllCustomers.Add();
             //set key
-            TestCustomer.CustomerID = PrimaryKey;
+            TestCustomer.CustomerId = PrimaryKey;
             //update test customer
-            TestCustomer.Name = "Bruce Wayne";
-            TestCustomer.Address = "10 Deacon Street";
-            TestCustomer.PhoneNumber = "12223344";
-            TestCustomer.DateAdded = DateTime.Now.Date;
-            TestCustomer.Querry = false;
+            TestCustomer.Name = "Test Son";
+            TestCustomer.Address = "Some Road";
+            TestCustomer.Postcode = "LE101NN";
+            TestCustomer.DoB = DateTime.Now.Date;
+            TestCustomer.GdprRequest = false;
             //set customer with new data
             AllCustomers.ThisCustomer = TestCustomer;
             AllCustomers.Update();
@@ -140,15 +140,15 @@ namespace TestingCustomer
             clsCustomer TestCustomer = new clsCustomer();
             Int32 PrimaryKey = 0;
             //set properties
-            TestCustomer.Name = "name";
-            TestCustomer.Address = "address";
-            TestCustomer.PhoneNumber = "1234";
-            TestCustomer.DateAdded = DateTime.Now.Date;
-            TestCustomer.Querry = true;
+            TestCustomer.Name = "John Barry";
+            TestCustomer.Address = "The Road";
+            TestCustomer.Postcode = "N111FF";
+            TestCustomer.DoB = DateTime.Now.Date;
+            TestCustomer.GdprRequest = false;
             AllCustomers.ThisCustomer = TestCustomer;
             //add customer to key
             PrimaryKey = AllCustomers.Add();
-            TestCustomer.CustomerID = PrimaryKey;
+            TestCustomer.CustomerId = PrimaryKey;
             AllCustomers.ThisCustomer.Find(PrimaryKey);
             AllCustomers.Delete();
             Boolean found = AllCustomers.ThisCustomer.Find(PrimaryKey);
@@ -172,7 +172,7 @@ namespace TestingCustomer
             //filtered data instance
             clsCustomerCollection FilteredNames = new clsCustomerCollection();
             //apply a name that does not exist
-            FilteredNames.ReportByName("abcdefg");
+            FilteredNames.ReportByName("abc");
             //test to see that there are no records
             Assert.AreEqual(0, FilteredNames.Count);
         }
@@ -184,17 +184,17 @@ namespace TestingCustomer
             clsCustomerCollection FilteredNames = new clsCustomerCollection();
             Boolean OK = true;
             //apply a name from the list
-            FilteredNames.ReportByName("Peter Parker");
+            FilteredNames.ReportByName("Bruce Lee");
             if (FilteredNames.Count == 2)
             {
-                //ID of customer is 74
-                if (FilteredNames.CustomerList[0].CustomerID != 74)
+                //ID of customer is 5
+                if (FilteredNames.CustomerList[0].CustomerId != 5)
                 {
                     OK = false;
                 }
 
-                //ID of customer is 75 
-                if (FilteredNames.CustomerList[1].CustomerID != 75)
+                //ID of customer is 10 
+                if (FilteredNames.CustomerList[1].CustomerId != 10)
                 {
                     OK = false;
                 }
