@@ -26,12 +26,39 @@ public partial class _1_DataEntry : System.Web.UI.Page
         //capture the Postcode
         AnCustomer.Postcode = txtPostcode.Text;
         //capture the Dob
-        //AnCustomer.Dob = txtDoB.Text;
-        //capture the GdrpRequest
-        //AnCustomer.Gdpr = chkGdprRequest.CheckBox;
+        //AnCustomer.DoB = DoB.Text;
+        //capture the GdrpRequest 
+        AnCustomer.GdprRequest = chkGdprRequest.Checked;
         //store the name in the session object
         Session["AnCustomer"] = AnCustomer;
         //Navigate to the viewer page
         Response.Redirect("CustomerViewer.aspx");
+    }
+
+    protected void btnFind_Click(object sender, EventArgs e)
+    {
+        //create an inst of the customer class
+        clsCustomer AnCustomer = new clsCustomer();
+        //var to store the prim key
+        Int32 CustomerId;
+        //var to store the result of the find op
+        Boolean Found = false;
+        //get the prim key entered by the user
+        CustomerId = Convert.ToInt32(txtCustomerId.Text);
+        //find the record
+        Found = AnCustomer.Find(CustomerId);
+        //if found
+        if (Found == true)
+        {
+            //display the values of the prop in the form
+            txtCustomerName.Text = AnCustomer.Name;
+            txtAddress.Text = AnCustomer.Address;
+            txtDoB.Text = AnCustomer.DoB.ToString();
+            txtPostcode.Text = AnCustomer.Postcode;
+            chkGdprRequest.Text = AnCustomer.GdprRequest.ToString();
+
+
+
+        }
     }
 }
