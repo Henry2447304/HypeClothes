@@ -70,7 +70,6 @@ namespace Testing1
             //test to see that the two values are the same
             Assert.AreEqual(AnCustomer.Dob, TestData);
         }
-
         [TestMethod]
         public void PostcodeOK()
         {
@@ -270,12 +269,12 @@ namespace Testing1
         }
 
         [TestMethod]
-        public void AddressMax()
+        public void PostcodeMax()
         {
             clsCustomer ACustomer = new clsCustomer();
             string Error = "";
-            string CustomerAddress = "";
-            CustomerAddress = CustomerAddress.PadLeft(50, '*');
+            string Postcode = "";
+            Postcode = Postcode.PadLeft(50, '*');
             Error = ACustomer.Valid(Name, Address, Postcode, Dob);
             Assert.AreEqual(Error, "");
         }
@@ -342,5 +341,236 @@ namespace Testing1
             Error = ACustomer.Valid(Name, Address, Postcode, Dob);
             Assert.AreEqual(Error, "");
         }
+        
+
+        [TestMethod]
+
+        public void DobExtremeMin()
+        {
+            //create an instance of the class we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //string variable to store any Error message
+            String Error = "";
+            //create a variable to store the test date data
+            DateTime TestDate;
+            //set the date totodays date
+            TestDate = DateTime.Now.Date;
+            //change the date to whatever the date is less 100 years
+            TestDate = TestDate.AddYears(-100);
+            //convert the date variable to a string variable
+            string Dob = TestDate.ToString();
+            //invoke the method
+            Error = ACustomer.Valid(Name, Address, Postcode, Dob);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DobMinLessOne()
+        {
+            //create an instance of the class we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //string variable to store any Error message
+            String Error = "";
+            //create a variable to store the test date data
+            DateTime TestDate;
+            //set the date to todays date
+            TestDate = DateTime.Now.Date;
+            //change the date to whatever the date is less 1 day
+            TestDate = TestDate.AddDays(-1);
+            //convert the date variable to a string variable
+            string Dob = TestDate.ToString();
+            //invoke the method
+            Error = ACustomer.Valid(Name, Address, Postcode, Dob);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DobMin()
+        {
+            //create an instance of the class we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //string variable to store any Error message
+            String Error = "";
+            //create a variable to store the test date data
+            DateTime TestDate;
+            //set the date to todays date
+            TestDate = DateTime.Now.Date;
+            //convert the date variable to a string variable
+            string Dob = TestDate.ToString();
+            //invoke the method
+            Error = ACustomer.Valid(Name, Address, Postcode, Dob);
+            //test to see that the result is correct
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void DobMinPlusOne()
+        {
+            //create an instance of the class we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //string variable to store any Error message
+            String Error = "";
+            //create a variable to store the test date data
+            DateTime TestDate;
+            //set the date to todays date
+            TestDate = DateTime.Now.Date;
+            //change the date to whatever the date is plus 1 day
+            TestDate = TestDate.AddDays(1);
+            //convert the date variable to a string variable
+            string Dob = TestDate.ToString();
+            //invoke the method
+            Error = ACustomer.Valid(Name, Address, Postcode, Dob);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DobExtremeMax()
+        {
+            //create an instance of the class we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //string variable to store any Error message
+            String Error = "";
+            //create a variable to store the test date data
+            DateTime TestDate;
+            //set the date totodays date
+            TestDate = DateTime.Now.Date;
+            //change the date to whatever the date is plus 100 years
+            TestDate = TestDate.AddYears(100);
+            //convert the date variable to a string variable
+            string Dob = TestDate.ToString();
+            //invoke the method
+            Error = ACustomer.Valid(Name, Address, Postcode, Dob);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DobInvalidData()
+        {
+            //create an instance of the clas we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //string variable to store any Error message
+            String Error = "";
+            //set the DateAdded to a non date value
+            string Dob = "this is not a date";
+            //invoke the method
+            Error = ACustomer.Valid(Name, Address, Postcode, Dob);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+        [TestMethod]
+        public void TestCustomerIdFound()
+        {
+            //create an instance of the class we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //boolean variable to store the result of the search
+            Boolean Found = false;
+            //boolean variable to record if data is OK (assume it is)
+            Boolean OK = true;
+            //create some test data to use with the method
+            Int32 CustomerId = 1;
+            //invoke the method
+            Found = ACustomer.Find(CustomerId);
+            //check the customerId
+            if (ACustomer.CustomerId != 1)
+            {
+                OK = false;
+            }
+            //test to see that the result is correct
+            Assert.IsTrue(OK);
+        }
+        [TestMethod]
+
+        public void TestNameFound()
+        {
+            //create an instance of the class we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //boolean variable to store the result of the search
+            Boolean Found = false;
+            //boolean variable to record if data is OK (assume it is)
+            Boolean OK = true;
+            //create some test data to use with the method
+            Int32 CustomerId = 1;
+            //invoke the method
+            Found = ACustomer.Find(CustomerId);
+            //check the property
+            if (ACustomer.Name != "Bruce Lee")
+            {
+                OK = false;
+            }
+            //test is correct
+            Assert.IsTrue(OK);
+        }
+
+        [TestMethod]
+        public void TestAddressFound()
+        {
+            //create an instance of the class we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //boolean variable to store the result of the search
+            Boolean Found = false;
+            //boolean variable to record if data is OK (assume it is)
+            Boolean OK = true;
+            //create some test data to use with the method
+            Int32 CustomerId = 1;
+            //invoke the method
+            Found = ACustomer.Find(CustomerId);
+            //check the address
+            if (ACustomer.Address != "Turbo Road")
+            {
+                OK = false;
+            }
+            //test to see that the result is correct
+            Assert.IsTrue(OK);
+        }
+
+        [TestMethod]
+        public void TestPostcodeFound()
+        {
+            //create an instance of the class we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //boolean variable to store the result of the search
+            Boolean Found = false;
+            //boolean variable to record if data is OK
+            Boolean OK = true;
+            //create some test data to use with the method
+            Int32 CustomerId = 1;
+            //invoke the method
+            Found = ACustomer.Find(CustomerId);
+            //check the postcode
+            if (ACustomer.Postcode != "PE10 1AB")
+            {
+                OK = false;
+            }
+            //test to see that the result is correct
+            Assert.IsTrue(OK);
+        }
+
+        [TestMethod]
+        public void TestDobFound()
+        {
+            //create an instance of the class we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //boolean variable to store the result of the search
+            Boolean Found = false;
+            //boolean variable to record if date
+            Boolean OK = true;
+            //create some test data to use with the method
+            Int32 CustomerId = 1;
+            //invoke the method
+            Found = ACustomer.Find(CustomerId);
+            //check the date
+            if (ACustomer.Dob != Convert.ToDateTime("10/04/1998"))
+            {
+                OK = false;
+            }
+            //test result is correct
+            Assert.IsTrue(OK);
+        }
+
+        
+
     }
 }

@@ -20,5 +20,10 @@ namespace ClassLibrary
         {
             throw new NotImplementedException();
         }
+
+        public bool Find(int customerID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
