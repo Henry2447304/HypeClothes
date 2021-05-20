@@ -108,7 +108,7 @@ namespace ClassLibrary
             {
                 //copy the data from the database to the private data members
                 mCustomerId = Convert.ToInt32(DB.DataTable.Rows[0]["CustomerId"]);
-                mName = Convert.ToString(DB.DataTable.Rows[0]["Name"]);
+                mName = Convert.ToString(DB.DataTable.Rows[0]["CustomerName"]);
                 mAddress = Convert.ToString(DB.DataTable.Rows[0]["Address"]);
                 mDoB = Convert.ToDateTime(DB.DataTable.Rows[0]["DoB"]);
                 mPostcode = Convert.ToString(DB.DataTable.Rows[0]["Postcode"]);
