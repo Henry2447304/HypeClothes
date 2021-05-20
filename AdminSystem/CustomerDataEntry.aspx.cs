@@ -15,24 +15,34 @@ public partial class _1_DataEntry : System.Web.UI.Page
 
     protected void btnOk_Click(object sender, EventArgs e)
     {
-        //create a new instance of clsCustomer
         clsCustomer AnCustomer = new clsCustomer();
-        //capture the CustomerId
-        //AnCustomer.CustomerId = txtCustomerId.Text;
-        //capture the name
-        AnCustomer.Name = txtCustomerName.Text;
-        //capture the Address
-        AnCustomer.Address = txtAddress.Text;
-        //capture the Postcode
-        AnCustomer.Postcode = txtPostcode.Text;
-        //capture the Dob
-        //AnCustomer.DoB = DoB.Text;
-        //capture the GdrpRequest 
-        AnCustomer.GdprRequest = chkGdprRequest.Checked;
-        //store the name in the session object
-        Session["AnCustomer"] = AnCustomer;
-        //Navigate to the viewer page
-        Response.Redirect("CustomerViewer.aspx");
+        String Name = txtCustomerName.Text;
+        String Address = txtAddress.Text;
+        String Postcode = txtPostcode.Text;
+        String DoB = txtDoB.Text;
+        string Error = "";
+        Error = AnCustomer.Valid(Name, Address, Postcode, DoB);
+        if (Error == "")
+        {
+            //capture the name
+            AnCustomer.Name = txtCustomerName.Text;
+            //capture the Address
+            AnCustomer.Address = txtAddress.Text;
+            //capture the Postcode
+            AnCustomer.Postcode = txtPostcode.Text;
+            //capture the Dob
+            AnCustomer.DoB = Convert.ToDateTime(txtDoB.Text);
+            //store the name in the session object
+            Session["AnCustomer"] = AnCustomer;
+            //Navigate to the viewer page
+            Response.Redirect("CustomerViewer.aspx");
+        }
+        else
+        {
+            lblError.Text = Error;
+        }
+
+        
     }
 
     protected void btnFind_Click(object sender, EventArgs e)
