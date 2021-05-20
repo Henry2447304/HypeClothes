@@ -5,9 +5,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Testing1
 {
     [TestClass]
-    public class tstCustomer
+    public class TstCustomer
     {
         //good test data
+        string Name = "John";
         string Dob = DateTime.Now.Date.ToString();
         string Address = "1, A Street, Leicester";
         string Postcode = "LE1 1AA";
@@ -29,8 +30,25 @@ namespace Testing1
             AnCustomer.CustomerId = TestData;
             Assert.AreEqual(AnCustomer.CustomerId, TestData);
         }
-        
-        
+
+        [TestMethod]
+        public void CustomerNameOK()
+        {
+            clsCustomer AnCustomer = new clsCustomer();
+            String TestData = Name;
+            AnCustomer.Name = TestData;
+            Assert.AreEqual(AnCustomer.Address, TestData);
+        }
+
+        [TestMethod]
+        public void ValidOK()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            string Error = "";
+            Error = ACustomer.Valid(Name, Address, Postcode, Dob);
+            Assert.AreEqual(Error, "");
+        }
+
         [TestMethod]
         public void AddressOK()
         {
@@ -70,6 +88,90 @@ namespace Testing1
             AnCustomer.Gdpr = TestData;
             Assert.AreEqual(AnCustomer.Gdpr, TestData);
         }
-        
-    }
+
+        [TestMethod]
+        public void NameMinLessOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            string Error = "";
+            string CustomerName = "";
+            Error = ACustomer.Valid(CustomerName, CustomerAddress, CustomerPhoneNumber, CustomerDateAdded);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void NameMin()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            string Error = "";
+            string CustomerName = "a";
+            Error = ACustomer.Valid(CustomerName, CustomerAddress, CustomerPhoneNumber, CustomerDateAdded);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void NameMinPlusone()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            string Error = "";
+            string CustomerName = "aa";
+            Error = ACustomer.Valid(CustomerName, CustomerAddress, CustomerPhoneNumber, CustomerDateAdded);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void NameMaxLessOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            string Error = "";
+            string CustomerName = "";
+            CustomerName = CustomerName.PadLeft(49, '*');
+            Error = ACustomer.Valid(CustomerName, CustomerAddress, CustomerPhoneNumber, CustomerDateAdded);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void NameMax()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            string Error = "";
+            string CustomerName = "";
+            CustomerName = CustomerName.PadLeft(50, '*');
+            Error = ACustomer.Valid(CustomerName, CustomerAddress, CustomerPhoneNumber, CustomerDateAdded);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void NameMaxPlusOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            string Error = "";
+            string CustomerName = "";
+            CustomerName = CustomerName.PadLeft(51, '*');
+            Error = ACustomer.Valid(CustomerName, CustomerAddress, CustomerPhoneNumber, CustomerDateAdded);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void NameMid()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            string Error = "";
+            string CustomerName = "";
+            CustomerName = CustomerName.PadLeft(25, '*');
+            Error = ACustomer.Valid(CustomerName, CustomerAddress, CustomerPhoneNumber, CustomerDateAdded);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void NameExtremeMax()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            string Error = "";
+            string CustomerName = "";
+            CustomerName = CustomerName.PadLeft(300, '*');
+            Error = ACustomer.Valid(CustomerName, CustomerAddress, CustomerPhoneNumber, CustomerDateAdded);
+            Assert.AreNotEqual(Error, "");
+
+        }
 }
