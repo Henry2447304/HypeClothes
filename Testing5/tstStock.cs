@@ -102,9 +102,9 @@ namespace Testing5
             //Boolean variable to store the results of the validation
             Boolean Found = false;
             //create some test data to use with the method
-            Int32 StockNo = 32;
+            Int32 ProductNo = 32;
             //invoke the method
-            Found = AnStock.Find(StockNo);
+            Found = AnStock.Find(ProductNo);
             //test to see if the result is true
             Assert.IsTrue(Found);
         }
@@ -141,7 +141,7 @@ namespace Testing5
             //invoke the method
             Found = AnStock.Find(ProductNo);
             //check
-            if (AnStock.DateAdded != Convert.ToDateTime("16/09/2021"))
+            if (AnStock.DateAdded != Convert.ToDateTime("16/9/2021"))
             {
                 OK = false;
             }
@@ -159,11 +159,11 @@ namespace Testing5
             //boolean variable to record if data is OK (assume it is)
             Boolean OK = true;
             //create some test data to use with the method 
-            Int32 StockNo = 50;
+            Int32 StockNo = 42;
             //invoke the method
             Found = AnStock.Find(StockNo);
             //check the address no
-            if (AnStock.StockNo != 50)
+            if (AnStock.StockNo != 42)
             {
                 OK = false;
             }
@@ -236,7 +236,6 @@ namespace Testing5
             //test to see that the result is correct
             Assert.IsTrue(OK);
         }
-
 
     }
 }

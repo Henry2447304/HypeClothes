@@ -79,6 +79,8 @@ namespace ClassLibrary
 
         //private data member for active
         private Boolean mInStck;
+        private readonly DateTime mDateAdded;
+
         //public property for active
         public bool InStck
         {
@@ -95,17 +97,38 @@ namespace ClassLibrary
         }
 
 
-        public bool Find(int stockNo)
+        public bool Find(int ProductNo)
         {
-            //set the private data members to the test data value
-            mProductID = 2;
-            mDateAdded = Convert.ToDateTime("10/02/2021");
-            mProductDescript = "Black NOCTA Hoodie";
-            mCost = 120;
-            mStockNo = 32;
-            mInStck = true;
-            //always return true
-            return true;
+            //create an instance of the data connection
+            clsDataConnection DB = new clsDataConnection();
+            //add the parameter for the product ID to search for
+            DB.AddParameter("@ProductID", ProductNo);
+            //execute the stored procedure
+            DB.Execute("sproc_tblStock_FilterByStockNo");
+            //if one record is found
+            if (DB.Count == 1)
+            {
+                //copy the data from the database to the private data members
+                mProductID = Convert.ToInt32(DB.DataTable.Rows[0]["ProductID"]);
+                mProductDescript = Convert.ToString(DB.DataTable.Rows[0]["ProductDescript"]);
+                mCost = Convert.ToInt32(DB.DataTable.Rows[0]["Cost"]);
+                mDateAdded = Convert.ToDateTime(DB.DataTable.Rows[0]["DateAdded"]);
+                mStockNo = Convert.ToInt32(DB.DataTable.Rows[0]["StockNo"]);
+                mInStck = Convert.ToBoolean(DB.DataTable.Rows[0]["InStck"]);
+                //return that everything worked OK
+                return true;
+            }
+            //if no record was found
+            else
+            {
+                //return false indicating a problem
+                return false;
+            }
+        }
+
+        public bool Find(string productDescript)
+        {
+            throw new NotImplementedException();
         }
     }
 }

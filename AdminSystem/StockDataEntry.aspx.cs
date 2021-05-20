@@ -23,7 +23,7 @@ public partial class _1_DataEntry : System.Web.UI.Page
 
     }
 
-    protected void btnOK_Click(object sender, EventArgs e)
+    protected void BtnOK_Click(object sender, EventArgs e)
     {
         //create a new instance for class stock
         clsStock AnStock = new clsStock();
