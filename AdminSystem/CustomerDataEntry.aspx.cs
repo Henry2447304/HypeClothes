@@ -31,5 +31,7 @@ public partial class _1_DataEntry : System.Web.UI.Page
         //AnCustomer.Gdpr = chkGdprRequest.CheckBox;
         //store the name in the session object
         Session["AnCustomer"] = AnCustomer;
+        //Navigate to the viewer page
+        Response.Redirect("CustomerViewer.aspx");
     }
 }

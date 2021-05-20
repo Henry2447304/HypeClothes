@@ -11,7 +11,7 @@
         <div>
         </div>
         <asp:Label ID="CustomerId" runat="server" Text="Customer ID"></asp:Label>
-        <asp:TextBox ID="txtCustomerId" runat="server" OnTextChanged="txtCustomerId_TextChanged"></asp:TextBox>
+        <asp:TextBox ID="txtCustomerId" runat="server"></asp:TextBox>
         <br />
         <asp:Label ID="CustomerName" runat="server" Text="Customer Name" width="79px"></asp:Label>
         <asp:TextBox ID="txtCustomerName" runat="server"></asp:TextBox>

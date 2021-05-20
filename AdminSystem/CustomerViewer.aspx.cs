@@ -14,8 +14,18 @@ public partial class _1Viewer : System.Web.UI.Page
         clsCustomer AnCustomer = new clsCustomer();
         //get the data from the session object
         AnCustomer = (clsCustomer)Session["AnCustomer"];
+        //display the CustomerId for this entry
+        Response.Write(AnCustomer.CustomerId);
         //display the name for this entry
         Response.Write(AnCustomer.Name);
+        //display the Address for this entry
+        Response.Write(AnCustomer.Address);
+        //display the Postcode for this entry
+        Response.Write(AnCustomer.Postcode);
+        //display the DoB for this entry
+        Response.Write(AnCustomer.Dob);
+        //display the Gdpr for this entry
+        Response.Write(AnCustomer.Gdpr);
 
     }
 }
