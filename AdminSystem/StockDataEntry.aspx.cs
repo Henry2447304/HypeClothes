@@ -44,6 +44,13 @@ public partial class _1_DataEntry : System.Web.UI.Page
             AnStock.Cost = Cost;
             AnStock.StockNo = StockNo;
             AnStock.DateAdded = Convert.ToDateTime(DateAdded);
+            AnStock.InStck = chkInStck.Checked;
+            //create a new instance of the stock collection
+            clsStockCollection StockList = new clsStockCollection();
+            //set the ThisStock property
+            StockList.ThisStock = AnStock;
+            //add the new record
+            StockList.Add();
             //store product description
             Session["AnStock"] = AnStock;
             //navigate to the viewer page
