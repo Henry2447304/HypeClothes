@@ -128,11 +128,52 @@ namespace ClassLibrary
         {
             return "";
         }
-
+        
         public string Valid(string name, string address, string postcode, string dob)
         {
-            throw new NotImplementedException();
+            string Error = "";
+            DateTime DateTemp;
+            if (name.Length < 1)
+            {
+                Error += "Name cannot be blank,";
+            }
+            if (name.Length > 50)
+            {
+                Error += "Name cannot be more than 50 characters,";
+            }
+
+            if (address.Length < 1)
+            {
+                Error = Error + "Address cannot be blank,";
+            }
+            if (address.Length > 50)
+            {
+                Error = Error + "Address cannot be more than 50 characters,";
+            }
+            if (postcode.Length < 1)
+            {
+                Error = Error + "Postcode cannot be blank,";
+            }
+            if (postcode.Length > 50)
+            {
+                Error = Error + "Postcode cannot be more than 50 characters,";
+            }
+            try
+            {
+                DateTemp = Convert.ToDateTime(dob);
+                if (DateTemp > DateTime.Now.Date)
+                {
+                    Error = Error + "The date cannot be in the future,";
+                }
+            }
+            catch
+            {
+                Error = Error + "The date was invalid,";
+            }
+
+
+            return Error;
         }
-        
+
     }
 }

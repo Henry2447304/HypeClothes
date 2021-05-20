@@ -37,7 +37,7 @@ namespace Testing1
             clsCustomer AnCustomer = new clsCustomer();
             String TestData = Name;
             AnCustomer.Name = TestData;
-            Assert.AreEqual(AnCustomer.Address, TestData);
+            Assert.AreEqual(AnCustomer.Name, TestData);
         }
 
         [TestMethod]
@@ -570,7 +570,14 @@ namespace Testing1
             Assert.IsTrue(OK);
         }
 
-        
+        [TestMethod]
+        public void ValidMethodOk()
+        {
+            clsCustomer AnCustomer = new clsCustomer();
+            String error = "";
+            error = AnCustomer.Valid(Name, Address, Postcode, Dob);
+            Assert.AreEqual(error, "");
+        }
 
     }
 }
