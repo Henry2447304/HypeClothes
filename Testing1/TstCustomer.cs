@@ -8,10 +8,10 @@ namespace Testing1
     public class TstCustomer
     {
         //good test data
-        string Name = "John";
+        string Name = "Bruce Lee";
         string Dob = DateTime.Now.Date.ToString();
-        string Address = "1, A Street, Leicester";
-        string Postcode = "LE1 1AA";
+        string Address = "Turbo Road";
+        string Postcode = "PE10 1AB";
 
         [TestMethod]
         public void InstanceOK()
@@ -32,7 +32,7 @@ namespace Testing1
         }
 
         [TestMethod]
-        public void CustomerNameOK()
+        public void NameOK()
         {
             clsCustomer AnCustomer = new clsCustomer();
             String TestData = Name;
@@ -80,7 +80,7 @@ namespace Testing1
         }
 
         [TestMethod]
-        public void GdprOK()
+        public void GdprRequestOK()
         {
             clsCustomer AnCustomer = new clsCustomer();
             Boolean TestData = true;
@@ -470,7 +470,7 @@ namespace Testing1
             //boolean variable to record if data is OK (assume it is)
             Boolean OK = true;
             //create some test data to use with the method
-            Int32 CustomerId = 1;
+            Int32 CustomerId = 5;
             //invoke the method
             Found = ACustomer.Find(CustomerId);
             //check the customerId
@@ -492,7 +492,7 @@ namespace Testing1
             //boolean variable to record if data is OK (assume it is)
             Boolean OK = true;
             //create some test data to use with the method
-            Int32 CustomerId = 1;
+            Int32 CustomerId = 5;
             //invoke the method
             Found = ACustomer.Find(CustomerId);
             //check the property
@@ -514,7 +514,7 @@ namespace Testing1
             //boolean variable to record if data is OK (assume it is)
             Boolean OK = true;
             //create some test data to use with the method
-            Int32 CustomerId = 1;
+            Int32 CustomerId = 5;
             //invoke the method
             Found = ACustomer.Find(CustomerId);
             //check the address
@@ -536,7 +536,7 @@ namespace Testing1
             //boolean variable to record if data is OK
             Boolean OK = true;
             //create some test data to use with the method
-            Int32 CustomerId = 1;
+            Int32 CustomerId = 5;
             //invoke the method
             Found = ACustomer.Find(CustomerId);
             //check the postcode
@@ -558,7 +558,7 @@ namespace Testing1
             //boolean variable to record if date
             Boolean OK = true;
             //create some test data to use with the method
-            Int32 CustomerId = 1;
+            Int32 CustomerId = 5;
             //invoke the method
             Found = ACustomer.Find(CustomerId);
             //check the date

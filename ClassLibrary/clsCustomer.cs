@@ -97,22 +97,31 @@ namespace ClassLibrary
         }
         public bool Find(int CustomerId)
         {
-            //set the private data members to the test data value
-            mCustomerId = 1;
-
-            mName = "Bruce Lee";
-
-            mAddress = "Turbo Road";
-
-            mPostcode = "PE10 1AB";
-
-            mDoB = Convert.ToDateTime("10/04/1998");
-
-            mGdprRequest = true;
-
-         
-            //always return true
-            return true;
+            //Create an instance of the data conneciton
+            clsDataConnection DB = new clsDataConnection();
+            //add the para for the Customer ID to search for
+            DB.AddParameter("@CustomerId", CustomerId);
+            //excute the stored procedure
+            DB.Execute("sproc_tblCustomer_FilterByCustomerId");
+            //if one record is found (there should be either one or zero
+            if (DB.Count == 1)
+            {
+                //copy the data from the database to the private data members
+                mCustomerId = Convert.ToInt32(DB.DataTable.Rows[0]["CustomerId"]);
+                mName = Convert.ToString(DB.DataTable.Rows[0]["Name"]);
+                mAddress = Convert.ToString(DB.DataTable.Rows[0]["Address"]);
+                mDoB = Convert.ToDateTime(DB.DataTable.Rows[0]["DoB"]);
+                mPostcode = Convert.ToString(DB.DataTable.Rows[0]["Postcode"]);
+                mGdprRequest = Convert.ToBoolean(DB.DataTable.Rows[0]["GdprRequest"]);
+                //return everything that worked
+                return true;
+            }
+            //if no record was found
+            else
+            {
+                //return false indi a problem
+                return false;
+            }
         }
 
         public string Valid(int mCustomerId)
