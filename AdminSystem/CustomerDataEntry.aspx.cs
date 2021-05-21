@@ -42,7 +42,7 @@ public partial class _1_DataEntry : System.Web.UI.Page
     {
         clsCustomer aCustomer = new clsCustomer();
         //variable to store the primary key
-        //Int32 CustomerId;
+        Int32 CustomerId;
         //variable to store the result of the find operation
         Boolean found = false;
         int Temp;
