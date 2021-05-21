@@ -39,6 +39,17 @@ namespace ClassLibrary
 
             }
         }
+
+        public void Find(System.Web.UI.WebControls.Label customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Find(System.Web.UI.WebControls.Label customerId)
+        {
+            throw new NotImplementedException();
+        }
+
         public string Address
         {
             get

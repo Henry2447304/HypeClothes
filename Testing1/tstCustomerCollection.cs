@@ -184,17 +184,17 @@ namespace TestingCustomer
             clsCustomerCollection FilteredNames = new clsCustomerCollection();
             Boolean OK = true;
             //apply a name from the list
-            FilteredNames.ReportByName("Bruce Lee");
-            if (FilteredNames.Count == 2)
+            FilteredNames.ReportByName("a");
+            if (FilteredNames.Count == 1)
             {
-                //ID of customer is 5
-                if (FilteredNames.CustomerList[0].CustomerId != 5)
+                //ID of customer is 16
+                if (FilteredNames.CustomerList[0].CustomerId != 16)
                 {
                     OK = false;
                 }
 
-                //ID of customer is 10 
-                if (FilteredNames.CustomerList[1].CustomerId != 10)
+                //ID of customer is 19 
+                if (FilteredNames.CustomerList[1].CustomerId != 19)
                 {
                     OK = false;
                 }
