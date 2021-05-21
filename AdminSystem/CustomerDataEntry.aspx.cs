@@ -8,11 +8,6 @@ using ClassLibrary;
 
 public partial class _1_DataEntry : System.Web.UI.Page
 {
-    protected void Page_Load(object sender, EventArgs e)
-    {
-
-    }
-
     protected void btnOk_Click(object sender, EventArgs e)
     {
         clsCustomer AnCustomer = new clsCustomer();
