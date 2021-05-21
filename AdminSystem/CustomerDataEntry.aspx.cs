@@ -8,7 +8,31 @@ using ClassLibrary;
 
 public partial class _1_DataEntry : System.Web.UI.Page
 {
+    Int32 CustomerId;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        CustomerId = Convert.ToInt32(Session["CustomerId"]);
+        if (IsPostBack == false)
+        {
+            DisplayCustomer();
+        }
+    }
+    void DisplayCustomer()
+    {
+        clsCustomerCollection Customers = new clsCustomerCollection();
+        //find the record to update
+        Customers.ThisCustomer.Find(CustomerId);
+        //display the data for this record
+        txtCustomerId.Text = Customers.ThisCustomer.CustomerId.ToString();
+        txtCustomerName.Text = Customers.ThisCustomer.Name;
+        txtAddress.Text = Customers.ThisCustomer.Address;
+        txtPostcode.Text = Customers.ThisCustomer.Postcode;
+        txtDoB.Text = Customers.ThisCustomer.DoB.ToString();
+        chkGdprRequest.Checked = Customers.ThisCustomer.GdprRequest;
+    }
+
     protected void btnOk_Click(object sender, EventArgs e)
+
     {
         clsCustomer AnCustomer = new clsCustomer();
         String Name = txtCustomerName.Text;
@@ -20,21 +44,29 @@ public partial class _1_DataEntry : System.Web.UI.Page
         if (Error == "")
         {
             //capture the name
-            AnCustomer.Name = txtCustomerName.Text;
+            AnCustomer.Name = CustomerId;
             //capture the Address
-            AnCustomer.Address = txtAddress.Text;
+            AnCustomer.Address = Address;
             //capture the Postcode
-            AnCustomer.Postcode = txtPostcode.Text;
+            AnCustomer.Postcode = Postcode;
             //capture the Dob
-            AnCustomer.DoB = Convert.ToDateTime(txtDoB.Text);
+            AnCustomer.DoB = Convert.ToDateTime(DoB);
             //cap Gdpr
             AnCustomer.GdprRequest = chkGdprRequest.Checked;
             //new cust col
             clsCustomerCollection CustomerList = new clsCustomerCollection();
-            //set ThisCustomer
-            CustomerList.ThisCustomer = AnCustomer;
-            //add new record
-            CustomerList.Add();
+
+            if (CustomerId == -1)
+            {
+                CustomerList.ThisCustomer = AnCustomer;
+                CustomerList.Add();
+            }
+            else
+            {
+                CustomerList.ThisCustomer.Find(CustomerId);
+                CustomerList.ThisCustomer = AnCustomer;
+                CustomerList.Update();
+            }
             Response.Redirect("CustomerList.aspx");
         }
         else
