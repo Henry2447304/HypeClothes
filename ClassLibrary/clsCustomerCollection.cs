@@ -7,7 +7,6 @@ namespace ClassLibrary
     public class clsCustomerCollection
     {
 
-
         public clsCustomerCollection()
         {
             clsDataConnection DB = new clsDataConnection();
